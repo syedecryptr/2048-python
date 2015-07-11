@@ -214,8 +214,8 @@ def gamexit():
 	return True
 def sendMail():
 	body_of_email = ""
-	GMAIL_USERNAME = "ug201311036@iitj.ac.in"
-	GMAIL_PASSWORD = "chutiyaujjwal"   
+	GMAIL_USERNAME = ""
+	GMAIL_PASSWORD = ""   
 	email_subject = "SCORE 2048 = " + str(int(SCORE))
 
 	session = smtplib.SMTP('smtp.gmail.com', 587)
