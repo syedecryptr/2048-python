@@ -1,8 +1,8 @@
 import pygame, sys, random, math, random, smtplib, numpy
 
-recipient = raw_input("Your E-Mail Address please !!    ")
-ROWS = int(raw_input("Number of Rows in game      "))
-COLS = int(raw_input("Number of Cols in game      "))
+recipient = input("Your E-Mail Address please !!    ")
+ROWS = int(input("Number of Rows in game      "))
+COLS = int(input("Number of Cols in game      "))
 SCORE = 0
 grid = numpy.zeros((ROWS,COLS))
 #print grid
@@ -18,8 +18,8 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 #initializing grid
-initialRow = random.sample(xrange(0,ROWS), 2) #two diff rand number between (0, rows)
-intitialCol = random.sample(xrange(0,COLS), 2)
+initialRow = random.sample(range(0,ROWS), 2) #two diff rand number between (0, rows)
+intitialCol = random.sample(range(0,COLS), 2)
 grid[initialRow[0], intitialCol[0]] = 2
 grid[initialRow[1], intitialCol[1]] = 2
 
@@ -68,7 +68,7 @@ def upgradeGrid(com):
 				if col > 0 and grid[row][col-1] == grid[row][col] and grid[row][col] > 0:
 					grid[row][col-1] *= 2
 					SCORE += grid[row][col-1]
- 					grid[row][col] = 0
+					grid[row][col] = 0
 					movement = True
 			for col in range(COLS):	
 				tempCol = col
@@ -166,7 +166,7 @@ def upgradeGrid(com):
 						tempRow += 1
 						movement = True
 					grid[tempRow][col] = tempRowVal
-	print SCORE
+	print (SCORE)
 	#print movement
 	if(movement == True):
 	 	randomNumber()
@@ -176,10 +176,10 @@ def drawGrid():
 			color = WHITE
 			pygame.draw.rect(gameDisplay,
 							color,
-                            [(MARGIN + gridWidth) * column + MARGIN,
-                            (MARGIN + gridHeight) * row + MARGIN,
-                            gridWidth,
-                            gridHeight])
+							[(MARGIN + gridWidth) * column + MARGIN,
+							(MARGIN + gridHeight) * row + MARGIN,
+							gridWidth,
+							gridHeight])
 			if grid[row, column] == 0:
 				num = ""
 			else:
@@ -213,6 +213,7 @@ def gamexit():
 		return False
 	return True
 def sendMail():
+	# fill in your email address password to send email.
 	body_of_email = ""
 	GMAIL_USERNAME = ""
 	GMAIL_PASSWORD = ""   
@@ -225,14 +226,14 @@ def sendMail():
 	body_of_email = ""
 	for i in range(ROWS):
 		for j in range(COLS):
-	 		body_of_email = body_of_email + str(int(grid[i,j])) + "    \t\r\t\r\t"
-	 	body_of_email = body_of_email  + " <br>  "
+			body_of_email = body_of_email + str(int(grid[i,j])) + "    \t\r\t\r\t"
+		body_of_email = body_of_email  + " <br>  "
 	# 	body_of_email = body_of_email + (str(grid[i:])) + " " + " <PRE> " " <br> + " "  </PRE> " +  (str(grid[i+1:]))
 	headers = "\r\n".join(["from: " + GMAIL_USERNAME,
-	                       "subject: " + email_subject,
-	                       "to: " + recipient,
-	                       "mime-version: 1.0",
-	                       "content-type: text/html"])
+						   "subject: " + email_subject,
+						   "to: " + recipient,
+						   "mime-version: 1.0",
+						   "content-type: text/html"])
 
 	content = headers + "\r\n\r\n" + body_of_email
 	session.sendmail(GMAIL_USERNAME, recipient, content)
@@ -256,7 +257,7 @@ while not gameExit:
 	drawGrid()
 	pygame.display.update()	
 	clock.tick(60)
-print grid
+print (grid)
 sendMail()
 print ("GAME OVER")
 #sendMail()
